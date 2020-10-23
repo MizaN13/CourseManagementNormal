@@ -15,6 +15,7 @@ namespace CourseManagementNormal.Web.Data
         public DbSet<Course> Courses { get; set; }
         public DbSet<Instructor> Instructors { get; set; }
         public DbSet<StudentCourse> StudentCourses { get; set; }
+        public DbSet<Enrollment> Enrollments { get; set; }
         public SchoolContext(string connectionString, string migrationAssemblyName)
         {
             _connectionString = connectionString;
@@ -54,6 +55,9 @@ namespace CourseManagementNormal.Web.Data
             modelBuilder.Entity<Instructor>()
                         .Property(i => i.Id)
                         .HasDefaultValueSql("newid()");
+            modelBuilder.Entity<Enrollment>()
+                        .Property(i => i.Id)
+                        .HasDefaultValueSql("newid()");
             modelBuilder.Entity<Course>()
                         .HasIndex(c => c.Name)
                         .IsUnique();
@@ -75,6 +79,20 @@ namespace CourseManagementNormal.Web.Data
                .HasOne(i => i.Instructor)
                .WithOne(c => c.Course)
                .HasForeignKey<Course>(i => i.InstrutorId);
+
+            modelBuilder.Entity<Student>()
+                .HasMany(t => t.Enrollments)
+                .WithOne(t => t.Student)
+                .HasForeignKey(t => t.StudentId);
+
+            modelBuilder.Entity<Enrollment>()
+                .HasIndex(t => new { t.StudentId, t.CourseId })
+                .IsUnique();
+
+            modelBuilder.Entity<Course>()
+                .HasMany(t => t.Enrollments)
+                .WithOne(t => t.Course)
+                .HasForeignKey(t => t.CourseId);
 
             base.OnModelCreating(modelBuilder);
         }

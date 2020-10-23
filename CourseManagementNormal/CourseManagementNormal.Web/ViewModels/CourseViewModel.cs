@@ -25,6 +25,7 @@ namespace CourseManagementNormal.Web.ViewModels
         public DateTime Time { get; set; }
         public DateTime RegClose { get; set; }
         public DateTime ClassStart { get; set; }
+        public string Picture { get; set; }
         public Guid InstrutorId { get; set; }
         public virtual Instructor Instructor { get; set; }
         public virtual ICollection<StudentCourse> Students { get; set; } = new List<StudentCourse>();

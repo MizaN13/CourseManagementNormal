@@ -62,6 +62,9 @@ namespace CourseManagementNormal.Web.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("Picture")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Prerequisite")
                         .HasColumnType("nvarchar(max)");
 
@@ -87,6 +90,32 @@ namespace CourseManagementNormal.Web.Migrations
                         .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("CourseManagementNormal.Web.Data.Entities.Enrollment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("newid()");
+
+                    b.Property<Guid>("CourseId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("Grade")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("StudentId", "CourseId")
+                        .IsUnique();
+
+                    b.ToTable("Enrollments");
                 });
 
             modelBuilder.Entity("CourseManagementNormal.Web.Data.Entities.Instructor", b =>
@@ -182,6 +211,21 @@ namespace CourseManagementNormal.Web.Migrations
                     b.HasOne("CourseManagementNormal.Web.Data.Entities.Instructor", "Instructor")
                         .WithOne("Course")
                         .HasForeignKey("CourseManagementNormal.Web.Data.Entities.Course", "InstrutorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CourseManagementNormal.Web.Data.Entities.Enrollment", b =>
+                {
+                    b.HasOne("CourseManagementNormal.Web.Data.Entities.Course", "Course")
+                        .WithMany("Enrollments")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CourseManagementNormal.Web.Data.Entities.Student", "Student")
+                        .WithMany("Enrollments")
+                        .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

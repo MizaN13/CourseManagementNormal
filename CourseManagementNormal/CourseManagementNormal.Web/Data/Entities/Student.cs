@@ -18,5 +18,7 @@ namespace CourseManagementNormal.Web.Data.Entities
         public int PassingYear { get; set; }
         public double Result { get; set; }
         public virtual ICollection<StudentCourse> Courses { get; set; } = new List<StudentCourse>();
+        public virtual ICollection<Enrollment> Enrollments { get; set; } = new List<Enrollment>();
+
     }
 }
