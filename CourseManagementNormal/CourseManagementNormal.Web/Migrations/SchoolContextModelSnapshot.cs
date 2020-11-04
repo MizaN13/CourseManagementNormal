@@ -29,10 +29,10 @@ namespace CourseManagementNormal.Web.Migrations
                     b.Property<int>("BatchNo")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("ClassDays")
+                    b.Property<DateTime?>("ClassDays")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("ClassStart")
+                    b.Property<DateTime?>("ClassStart")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Classes")
@@ -68,13 +68,13 @@ namespace CourseManagementNormal.Web.Migrations
                     b.Property<string>("Prerequisite")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("RegClose")
+                    b.Property<DateTime?>("RegClose")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Target")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Time")
+                    b.Property<DateTime?>("Time")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Type")

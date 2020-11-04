@@ -21,10 +21,10 @@ namespace CourseManagementNormal.Web.ViewModels
         public int Lessons { get; set; }
         public double Duration { get; set; }
         public int BatchNo { get; set; }
-        public DateTime ClassDays { get; set; }
-        public DateTime Time { get; set; }
-        public DateTime RegClose { get; set; }
-        public DateTime ClassStart { get; set; }
+        public DateTime? ClassDays { get; set; }
+        public DateTime? Time { get; set; }
+        public DateTime? RegClose { get; set; }
+        public DateTime? ClassStart { get; set; }
         public string Picture { get; set; }
         public Guid InstrutorId { get; set; }
         public virtual Instructor Instructor { get; set; }
